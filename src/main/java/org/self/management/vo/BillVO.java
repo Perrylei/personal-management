@@ -33,5 +33,11 @@ public class BillVO implements Serializable {
     private String label;
 
     /** 创建时间 */
-    private Date ceateTime;
+    private Date createTime;
+
+    /** 更新时间 */
+    private Date updateTime;
+
+    /** 备注 */
+    private String remark;
 }

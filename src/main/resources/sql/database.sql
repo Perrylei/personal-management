@@ -22,14 +22,14 @@ update_time datetime NOT NULL COMMENT '更新时间'
 ) COMMENT '每日任务表';
 
 CREATE TABLE `bill` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '类型',
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `amount` decimal(10,0) NOT NULL COMMENT '金额',
   `time` datetime NOT NULL COMMENT '时间',
   `mode` varchar(10) NOT NULL COMMENT '方式（wechat,alipay and others）',
   `is_output` int NOT NULL COMMENT '是否为消费',
   `label` varchar(20) DEFAULT NULL COMMENT '标签(food,clohes and so on)',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
-  `ceate_time` datetime NOT NULL COMMENT '创建时间',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='账单'

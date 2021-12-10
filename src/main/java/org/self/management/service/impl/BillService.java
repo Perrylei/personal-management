@@ -27,12 +27,13 @@ public class BillService implements IBillService {
 
     @Override
     public int insertBillVO(BillVO billVO) {
-        billVO.setCeateTime(new Date());
+        billVO.setCreateTime(new Date());
         return billDao.insertBillVO(billVO);
     }
 
     @Override
     public int updateBillVO(BillVO billVO) {
+        billVO.setUpdateTime(new Date());
         return billDao.updateBillVO(billVO);
     }
 

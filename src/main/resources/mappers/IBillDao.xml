@@ -12,12 +12,12 @@
         <result property="isOutput"    column="is_output"    />
         <result property="label"    column="label"    />
         <result property="remark"    column="remark"    />
-        <result property="ceateTime"    column="ceate_time"    />
+        <result property="createTime"    column="create_time"    />
         <result property="updateTime"    column="update_time"    />
     </resultMap>
 
     <sql id="selectBillVo">
-        select id, amount, time, mode, is_output, label, remark, ceate_time, update_time from bill
+        select id, amount, time, mode, is_output, label, remark, create_time, update_time from bill
     </sql>
 
     <select id="selectBillVOList" parameterType="BillVO" resultMap="BillResult">
@@ -28,7 +28,7 @@
             <if test="mode != null  and mode != ''"> and mode = #{mode}</if>
             <if test="isOutput != null "> and is_output = #{isOutput}</if>
             <if test="label != null  and label != ''"> and label = #{label}</if>
-            <if test="ceateTime != null "> and ceate_time = #{ceateTime}</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
         </where>
     </select>
 
@@ -46,7 +46,7 @@
             <if test="isOutput != null">is_output,</if>
             <if test="label != null">label,</if>
             <if test="remark != null">remark,</if>
-            <if test="ceateTime != null">ceate_time,</if>
+            <if test="createTime != null">create_time,</if>
             <if test="updateTime != null">update_time,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -56,7 +56,7 @@
             <if test="isOutput != null">#{isOutput},</if>
             <if test="label != null">#{label},</if>
             <if test="remark != null">#{remark},</if>
-            <if test="ceateTime != null">#{ceateTime},</if>
+            <if test="createTime != null">#{createTime},</if>
             <if test="updateTime != null">#{updateTime},</if>
         </trim>
     </insert>
@@ -70,7 +70,7 @@
             <if test="isOutput != null">is_output = #{isOutput},</if>
             <if test="label != null">label = #{label},</if>
             <if test="remark != null">remark = #{remark},</if>
-            <if test="ceateTime != null">ceate_time = #{ceateTime},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
         where id = #{id}

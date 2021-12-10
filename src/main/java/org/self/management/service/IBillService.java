@@ -1,6 +1,7 @@
 package org.self.management.service;
 
 import org.self.management.vo.BillVO;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -44,6 +45,7 @@ public interface IBillService {
      * @param ids 需要删除的账单主键集合
      * @return 结果
      */
+    @Transactional
     public int deleteBillVOByIds(String ids);
 
     /**
