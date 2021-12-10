@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.self.management.dao.IWageDao">
+
+    <resultMap type="WageVO" id="WageResult">
+        <result property="id"    column="id"    />
+        <result property="releaseTime"    column="release_time"    />
+        <result property="workDayCount"    column="work_day_count"    />
+        <result property="baseWage"    column="base_wage"    />
+        <result property="wagesPayable"    column="wages_payable"    />
+        <result property="netWage"    column="net_wage"    />
+        <result property="datail"    column="datail"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectWageVo">
+        select id, release_time, work_day_count, base_wage, wages_payable, net_wage, datail, create_time, update_time, remark from wage
+    </sql>
+
+    <select id="selectWageVOList" parameterType="WageVO" resultMap="WageResult">
+        <include refid="selectWageVo"/>
+        <where>
+            <if test="releaseTime != null "> and release_time = #{releaseTime}</if>
+            <if test="workDayCount != null "> and work_day_count = #{workDayCount}</if>
+            <if test="baseWage != null "> and base_wage = #{baseWage}</if>
+            <if test="wagesPayable != null "> and wages_payable = #{wagesPayable}</if>
+            <if test="netWage != null "> and net_wage = #{netWage}</if>
+            <if test="datail != null  and datail != ''"> and datail = #{datail}</if>
+        </where>
+    </select>
+
+    <select id="selectWageVOById" parameterType="String" resultMap="WageResult">
+        <include refid="selectWageVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertWageVO" parameterType="WageVO" useGeneratedKeys="true" keyProperty="id">
+        insert into wage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="releaseTime != null">release_time,</if>
+            <if test="workDayCount != null">work_day_count,</if>
+            <if test="baseWage != null">base_wage,</if>
+            <if test="wagesPayable != null">wages_payable,</if>
+            <if test="netWage != null">net_wage,</if>
+            <if test="datail != null and datail != ''">datail,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="releaseTime != null">#{releaseTime},</if>
+            <if test="workDayCount != null">#{workDayCount},</if>
+            <if test="baseWage != null">#{baseWage},</if>
+            <if test="wagesPayable != null">#{wagesPayable},</if>
+            <if test="netWage != null">#{netWage},</if>
+            <if test="datail != null and datail != ''">#{datail},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateWageVO" parameterType="WageVO">
+        update wage
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="releaseTime != null">release_time = #{releaseTime},</if>
+            <if test="workDayCount != null">work_day_count = #{workDayCount},</if>
+            <if test="baseWage != null">base_wage = #{baseWage},</if>
+            <if test="wagesPayable != null">wages_payable = #{wagesPayable},</if>
+            <if test="netWage != null">net_wage = #{netWage},</if>
+            <if test="datail != null and datail != ''">datail = #{datail},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWageVOById" parameterType="String">
+        delete from wage where id = #{id}
+    </delete>
+
+    <delete id="deleteWageVOByIds" parameterType="String">
+        delete from wage where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

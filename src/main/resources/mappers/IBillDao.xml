@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.self.management.dao.IBillDao">
+
+    <resultMap type="BillVO" id="BillResult">
+        <result property="id"    column="id"    />
+        <result property="amount"    column="amount"    />
+        <result property="time"    column="time"    />
+        <result property="mode"    column="mode"    />
+        <result property="isOutput"    column="is_output"    />
+        <result property="label"    column="label"    />
+        <result property="remark"    column="remark"    />
+        <result property="ceateTime"    column="ceate_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectBillVo">
+        select id, amount, time, mode, is_output, label, remark, ceate_time, update_time from bill
+    </sql>
+
+    <select id="selectBillVOList" parameterType="BillVO" resultMap="BillResult">
+        <include refid="selectBillVo"/>
+        <where>
+            <if test="amount != null "> and amount = #{amount}</if>
+            <if test="time != null "> and time = #{time}</if>
+            <if test="mode != null  and mode != ''"> and mode = #{mode}</if>
+            <if test="isOutput != null "> and is_output = #{isOutput}</if>
+            <if test="label != null  and label != ''"> and label = #{label}</if>
+            <if test="ceateTime != null "> and ceate_time = #{ceateTime}</if>
+        </where>
+    </select>
+
+    <select id="selectBillVOById" parameterType="String" resultMap="BillResult">
+        <include refid="selectBillVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertBillVO" parameterType="BillVO" useGeneratedKeys="true" keyProperty="id">
+        insert into bill
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="amount != null">amount,</if>
+            <if test="time != null">time,</if>
+            <if test="mode != null and mode != ''">mode,</if>
+            <if test="isOutput != null">is_output,</if>
+            <if test="label != null">label,</if>
+            <if test="remark != null">remark,</if>
+            <if test="ceateTime != null">ceate_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="amount != null">#{amount},</if>
+            <if test="time != null">#{time},</if>
+            <if test="mode != null and mode != ''">#{mode},</if>
+            <if test="isOutput != null">#{isOutput},</if>
+            <if test="label != null">#{label},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="ceateTime != null">#{ceateTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateBillVO" parameterType="BillVO">
+        update bill
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="mode != null and mode != ''">mode = #{mode},</if>
+            <if test="isOutput != null">is_output = #{isOutput},</if>
+            <if test="label != null">label = #{label},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="ceateTime != null">ceate_time = #{ceateTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBillVOById" parameterType="String">
+        delete from bill where id = #{id}
+    </delete>
+
+    <delete id="deleteBillVOByIds" parameterType="String">
+        delete from bill where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
