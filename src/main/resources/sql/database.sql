@@ -33,3 +33,13 @@ CREATE TABLE `bill` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='账单'
+
+// 高并发场景所需要的三个数据库
+CREATE TABLE USER(
+id bigint PRIMARY KEY AUTO_INCREMENT COMMENT 'ID',
+name varchar(20) NOT NULL COMMENT '姓名',
+phone char(11) NOT NULL COMMENT '电话',
+create_time datetime NOT NULL COMMENT '创建时间',
+update_time datetime NOT NULL COMMENT '更新时间'
+)COMMENT '用户信息表';
+
